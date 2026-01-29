@@ -1,0 +1,79 @@
+# Environment variables (CRITICAL - contains API keys!)
+.env
+.env.local
+.env.*.local
+*.env
+venv/
+.venv/
+
+# Uploaded files (user data)
+backend/uploads/
+backend/temp/
+
+# Logs
+*.log
+logs/
+backend/logs/
+
+# Database files
+*.db
+*.sqlite
+
+# Alembic (if you add migrations later)
+alembic/versions/*.pyc
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Backup files
+*.bak
+*.backup
+
+# Cache
+.cache/
+__pycache__/
+
+# Large model files (if you download any)
+*.bin
+*.pt
+*.pth
+*.ckpt
+
+# Documentation builds
+docs/_build/
+docs/.doctrees/
+
+
+# ==================== SENSITIVE FILES ====================
+
+# API Keys and secrets (EXTRA PROTECTION)
+**/secrets.json
+**/credentials.json
+**/.secrets/
+api_keys.txt
+secrets.txt
+
+# Private keys
+*.pem
+*.key
+*.cert
+
+# Configuration with sensitive data
+config.local.js
+config.local.json
+
+
+# ==================== KEEP THESE (negative patterns) ====================
+
+# Keep empty directories with .gitkeep
+!.gitkeep
+
+# Keep example environment file
+!.env.example
+!backend/.env.example
+
+# Keep README files
+!README.md
+!*/README.md
