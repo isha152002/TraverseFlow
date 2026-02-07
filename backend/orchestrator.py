@@ -44,23 +44,23 @@ class RoadmapOrchestrator:
         Returns:
             Dictionary with roadmap and metadata
         """
-        print("🚀 Starting roadmap generation...")
+        print(" Starting roadmap generation...")
         
         # Step 1: Analyze content
-        print("\n📊 Step 1: Analyzing content...")
+        print("\n Step 1: Analyzing content...")
         analysis_result = self.content_analyzer.run({'text': text})
         topics = analysis_result.get('topics', [])
         print(f"   Found {len(topics)} topics")
         
         # Step 2: Detect prerequisites
-        print("\n🔍 Step 2: Detecting prerequisites...")
+        print("\n Step 2: Detecting prerequisites...")
         prereq_result = self.prerequisite_detector.run({'topics': topics})
         prerequisites = prereq_result.get('prerequisites', {})
         learning_path = prereq_result.get('learning_path', [])
         print(f"   Created learning path with {len(learning_path)} steps")
         
         # Step 3: Create structure
-        print("\n🏗️  Step 3: Building structure...")
+        print("\n🏗️ Step 3: Building structure...")
         structure_result = self.structure_architect.run({
             'topics': topics,
             'prerequisites': prerequisites,
@@ -70,7 +70,7 @@ class RoadmapOrchestrator:
         print(f"   Total time: {structure_result.get('total_time_estimate', 'N/A')}")
         
         # Step 4: Enrich content
-        print("\n✨ Step 4: Enriching content...")
+        print("\n Step 4: Enriching content...")
         enrichment_result = self.content_enricher.run({
             'topics': structure_result.get('topics', [])
         })
@@ -99,7 +99,7 @@ class RoadmapOrchestrator:
         }
         
         # Step 5: Validation and refinement loop
-        print("\n🔄 Step 5: Validation and refinement...")
+        print("\n Step 5: Validation and refinement...")
         iteration = 0
         validation_score = 0
         
@@ -108,7 +108,7 @@ class RoadmapOrchestrator:
             print(f"\n   Iteration {iteration}/{self.max_iterations}")
             
             # Validate
-            print("   ⚖️  Validating...")
+            print("     Validating...")
             validation_result = self.validator.run({'roadmap': roadmap})
             validation_score = validation_result.get('score', 0)
             passed = validation_result.get('passed', False)
@@ -116,15 +116,15 @@ class RoadmapOrchestrator:
             print(f"   Score: {validation_score}/100")
             
             if passed:
-                print("   ✅ Validation passed!")
+                print("   Validation passed!")
                 break
             
             if iteration >= self.max_iterations:
-                print("   ⚠️  Max iterations reached")
+                print("     Max iterations reached")
                 break
             
             # Refine
-            print("   🔧 Refining roadmap...")
+            print("    Refining roadmap...")
             refined = self.refiner.run({
                 'roadmap': roadmap,
                 'validation': validation_result
@@ -133,7 +133,7 @@ class RoadmapOrchestrator:
             # Update roadmap
             roadmap.update(refined)
         
-        print(f"\n✅ Roadmap generation complete!")
+        print(f"\n Roadmap generation complete!")
         print(f"   Final score: {validation_score}/100")
         print(f"   Iterations: {iteration}")
         

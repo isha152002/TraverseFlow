@@ -73,24 +73,4 @@ Return ONLY a JSON object with the improved roadmap using the EXACT same structu
   "topics": [...]
 }}"""
     
-    def _parse_response(self, response: str) -> Dict[str, Any]:
-        try:
-            data = json.loads(response)
-            return data
-        except json.JSONDecodeError:
-            if "```json" in response:
-                start = response.find("```json") + 7
-                end = response.find("```", start)
-                json_str = response[start:end].strip()
-                return json.loads(json_str)
-            elif "```" in response:
-                start = response.find("```") + 3
-                end = response.find("```", start)
-                json_str = response[start:end].strip()
-                return json.loads(json_str)
-            else:
-                start = response.find('{')
-                end = response.rfind('}') + 1
-                if start != -1 and end != 0:
-                    return json.loads(response[start:end])
-                raise ValueError("Could not parse response as JSON")
+    

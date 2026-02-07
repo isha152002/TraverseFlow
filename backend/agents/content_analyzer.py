@@ -1,7 +1,7 @@
 # backend/agents/content_analyzer.py
 from .base_agent import BaseAgent
 from typing import Dict, Any
-import json
+
 
 class ContentAnalyzer(BaseAgent):
     """Analyzes content and extracts topics"""
@@ -61,28 +61,4 @@ Return ONLY a JSON object with this structure:
   ]
 }}"""
     
-    def _parse_response(self, response: str) -> Dict[str, Any]:
-        """Parse JSON response"""
-        try:
-            # Try direct JSON parse
-            data = json.loads(response)
-            return data
-        except json.JSONDecodeError:
-            # Try to extract JSON from markdown code blocks
-            if "```json" in response:
-                start = response.find("```json") + 7
-                end = response.find("```", start)
-                json_str = response[start:end].strip()
-                return json.loads(json_str)
-            elif "```" in response:
-                start = response.find("```") + 3
-                end = response.find("```", start)
-                json_str = response[start:end].strip()
-                return json.loads(json_str)
-            else:
-                # Try to find JSON object
-                start = response.find('{')
-                end = response.rfind('}') + 1
-                if start != -1 and end != 0:
-                    return json.loads(response[start:end])
-                raise ValueError("Could not parse response as JSON")
+    

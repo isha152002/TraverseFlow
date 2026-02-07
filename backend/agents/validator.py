@@ -70,32 +70,4 @@ Return ONLY a JSON object with this structure:
 
 Score threshold for passing: 85/100"""
     
-    def _parse_response(self, response: str) -> Dict[str, Any]:
-        try:
-            data = json.loads(response)
-            # Ensure passed field is set correctly
-            data['passed'] = data.get('score', 0) >= 85
-            return data
-        except json.JSONDecodeError:
-            if "```json" in response:
-                start = response.find("```json") + 7
-                end = response.find("```", start)
-                json_str = response[start:end].strip()
-                data = json.loads(json_str)
-                data['passed'] = data.get('score', 0) >= 85
-                return data
-            elif "```" in response:
-                start = response.find("```") + 3
-                end = response.find("```", start)
-                json_str = response[start:end].strip()
-                data = json.loads(json_str)
-                data['passed'] = data.get('score', 0) >= 85
-                return data
-            else:
-                start = response.find('{')
-                end = response.rfind('}') + 1
-                if start != -1 and end != 0:
-                    data = json.loads(response[start:end])
-                    data['passed'] = data.get('score', 0) >= 85
-                    return data
-                raise ValueError("Could not parse response as JSON")
+   
